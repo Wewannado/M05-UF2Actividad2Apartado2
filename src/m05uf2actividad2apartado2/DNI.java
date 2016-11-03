@@ -1,55 +1,96 @@
 package m05uf2actividad2apartado2;
 
 /**
+ * Aquesta classe incorpora metodes per a instanciar un objecte DNI
  *
  * @author Roger G. Coscojuela
  */
 public class DNI {
 
+    private String nif;
+    private String letra;
+    private String numero;
+
+    /**
+     * Creem un objecte de tipus NIF.
+     *
+     * @param nif el NIF de l'objecte
+     */
     public DNI(String nif) {
         this.nif = nif;
     }
 
+    /**
+     * Actualitza el valor del NIF de l'objecte.
+     *
+     * @param nif El NIF que volem inserir
+     */
     public void setNif(String nif) {
         this.nif = nif;
     }
 
-    private String nif;
-    private String missatge;
+    /**
+     *
+     * @return el ultim caracter del NIF (Per a DNI's correctes, una lletra)
+     */
+    public String getLletra() {
+        this.letra = nif.substring(nif.length() - 1);
+        return letra;
+    }
 
-    public void esValid() {
+    /**
+     *
+     * @return La part corresponen a la part numerica del DNI
+     */
+    public String getNumero() {
+        this.numero = nif.substring(0, nif.length() - 1);
+        return numero;
+    }
 
-        
-    final  String INCORRECT_FORMAT_LENGHT = "Format Incorrecte2";
-    final  String NIF_CORRECT = "Nif Vàlid";
-    final  String NIF_INCORRECT = "Format Incorrecte2";
-    final  String INCORRECT_NUMERICAL_DATA = "Format Incorrecte2";
-    final  char[] CHARNIF= {'T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E'};
+    /**
+     * Valida un objecte DNI
+     * @return True per a DNI valid, false en cas contrari.
+     * @throws m05uf2actividad2apartado2.IncorrectNumericalDataException
+     * @throws m05uf2actividad2apartado2.IncorrectFormatLengthException
+     */
+    public boolean esValid() throws IncorrectNumericalDataException, IncorrectFormatLengthException {
 
-    int num = 0;
-    String letra;
-    String numero;
+        final String INCORRECT_FORMAT_LENGHT = "Format Incorrecte2";
+        final String INCORRECT_NUMERICAL_DATA = "Format Incorrecte";
+        final char[] CHARNIF = {'T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 
+            'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E'};
+        final int DNI_MAX_LENGTH = 9;
+        final int DNI_MIN_LENGTH = 8;
+        boolean result = false;
 
-    letra  = nif.substring(nif.length() - 1);
-    numero  = nif.substring(0, nif.length() - 1);
+        // primer mirem que la cadena tingui una llargaria correcta:
+        if (nif.length() < DNI_MIN_LENGTH || nif.length() > DNI_MAX_LENGTH) {
+            throw new IncorrectFormatLengthException(INCORRECT_FORMAT_LENGHT);
 
-    // primer mirem que la cadena tingui 8 o 9 caràcters:
-    if (nif.length () 
-        < 8 || nif.length() > 9) {
-            missatge = INCORRECT_FORMAT_LENGHT;
-    } // Després mirem que el número sigui convertible a enter.
+        } // Després mirem que el número sigui convertible a enter.
         else {
             try {
-            num = Integer.parseInt(numero);
-            if (String.valueOf(CHARNIF[num % 23]).equals(letra)) {
-                missatge = NIF_CORRECT;
-            } else {
-                missatge = NIF_INCORRECT;
+                result = String.valueOf(CHARNIF[Integer.parseInt(getNumero()) % 
+                        CHARNIF.length]).equals(getLletra());
+            } catch (NumberFormatException e) {
+                throw new IncorrectNumericalDataException(INCORRECT_NUMERICAL_DATA);
             }
-        } catch (NumberFormatException e) {
-            missatge = INCORRECT_NUMERICAL_DATA;
         }
+        return result;
     }
-    System.out.println (missatge);
+
 }
+
+class IncorrectNumericalDataException extends Exception {
+
+    public IncorrectNumericalDataException(String message) {
+        super(message);
+    }
+}
+
+class IncorrectFormatLengthException extends Exception {
+
+    public IncorrectFormatLengthException(String message) {
+        super(message);
+    }
 }
