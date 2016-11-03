@@ -42,17 +42,11 @@ public class Tests {
     public void tearDown() {
     }
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
     @Test
     public void TestValidaDNI() throws IncorrectNumericalDataException, IncorrectFormatLengthException {
         dni = new DNI("46947903G");
         boolean esValid = dni.esValid();
         assertTrue(esValid);
-        fail("El test debe de pasar si se introduce un DNI correcto.");
     }
 
     @Test
@@ -60,7 +54,6 @@ public class Tests {
         dni = new DNI("46947903X");
         boolean esValid = dni.esValid();
         assertFalse(esValid);
-        fail("El test debe de pasar si se introduce un DNI con formato correcto pero inexistente");
     }
 
     @Test(expected = IncorrectNumericalDataException.class)
