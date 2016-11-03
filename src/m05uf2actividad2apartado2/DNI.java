@@ -55,8 +55,8 @@ public class DNI {
      */
     public boolean esValid() throws IncorrectNumericalDataException, IncorrectFormatLengthException {
 
-        final String INCORRECT_FORMAT_LENGHT = "Format Incorrecte2";
-        final String INCORRECT_NUMERICAL_DATA = "Format Incorrecte";
+        final String INCORRECT_FORMAT_LENGHT = "Longitud incorrecta.";
+        final String INCORRECT_NUMERICAL_DATA = "Format de la part numerica incorrecte";
         final char[] CHARNIF = {'T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 
             'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E'};
         final int DNI_MAX_LENGTH = 9;
@@ -79,18 +79,4 @@ public class DNI {
         return result;
     }
 
-}
-
-class IncorrectNumericalDataException extends Exception {
-
-    public IncorrectNumericalDataException(String message) {
-        super(message);
-    }
-}
-
-class IncorrectFormatLengthException extends Exception {
-
-    public IncorrectFormatLengthException(String message) {
-        super(message);
-    }
 }
