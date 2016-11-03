@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import m05uf2actividad2apartado2.DNI;
 import m05uf2actividad2apartado2.IncorrectFormatLengthException;
 import m05uf2actividad2apartado2.IncorrectNumericalDataException;
